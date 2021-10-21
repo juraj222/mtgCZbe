@@ -31,14 +31,17 @@ public class MtgServiceImpl implements MtgService{
             final HtmlPage searchResults = submitbutton.click();
 
             List<DomElement> names = searchResults.getByXPath("//font");
+            List<DomElement> edition = searchResults.getByXPath("//td[@align='left']");
 
             int i = 0; //name 1 - stock 2 - price 3
+            int editionIterator = 1; //skip first with name
             CRCard actualCard = null;
             for(DomElement el :names) {
                 i++;
                 if(i == 1) {
                     actualCard = new CRCard();
-                    actualCard.setName(el.getVisibleText());
+                    actualCard.setName(el.getVisibleText() + " - " + edition.get(editionIterator).getVisibleText());
+                    editionIterator+=2; //skip 2 second is card rarity
                 }
                 if(i == 2 && actualCard != null) {
                     actualCard.setStock(Integer.parseInt(el.getVisibleText().replaceAll("[\\D]", "")));
