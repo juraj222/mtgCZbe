@@ -22,6 +22,8 @@ public class MtgServiceImpl implements MtgService{
         //https://htmlunit.sourceforge.io/
         List<CRCard> findCards = new ArrayList<>();
         try (final WebClient webClient = new WebClient(BrowserVersion.CHROME)) {
+            webClient.getOptions().setCssEnabled(false);
+            webClient.getOptions().setJavaScriptEnabled(false);
             final HtmlPage page = webClient.getPage("http://cernyrytir.cz/index.php3?akce=3");
             final HtmlForm form = page.getFormByName("kusovkymagic");
             final HtmlTextInput jmenokarty = form.getInputByName("jmenokarty");
