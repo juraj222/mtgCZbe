@@ -17,4 +17,9 @@ public class MtgController {
     public List<CRCard> findCardsOnMarket(@PathVariable String cardName) {
         return mtgService.findCard(cardName);
     }
+
+    @GetMapping(value = "/ping")
+    public String ping() {
+        return "OK";
+    }
 }
